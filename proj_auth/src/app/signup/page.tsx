@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Axios } from 'axios';
 
-function page() {
+function signupPage() {
   const [user, setUser] = React.useState({
     email: "",
     password: "",
@@ -110,4 +110,4 @@ function page() {
   )
 }
 
-export default page
+export default signupPage
