@@ -10,8 +10,7 @@ function loginPage() {
   const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
-    password: "",
-    confirmPassword: "",
+    password: ""
   });
 
   const [buttonDisabled, setbuttonDisabled] = React.useState(false);
@@ -21,13 +20,13 @@ function loginPage() {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", user);
-      console.log("Login success", response.data);
+      // console.log("Login success", response.data);
       toast.success("login Success");
-      
-    } catch (error:any) {
-      console.log("sign-up failed", error.message);
-      toast.error(error.message);
       router.push("/profile");
+    } catch (error:any) {
+      // console.log("Login failed", error.message);
+      toast.error(error.message);
+      
     }finally {
       setLoading(false);
     }
