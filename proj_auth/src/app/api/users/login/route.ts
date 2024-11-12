@@ -10,7 +10,7 @@ export async function POST(request: NextRequest){
     try {
         const reqBody = await request.json()
         const {email, password} = reqBody
-        console.log("Received request body:", reqBody);
+        // console.log("Received request body:", reqBody);
         
 
         // check if user exists 
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest){
         return response
 
     } catch (error: any) {
-        console.error("Error during login:", error);
+        // console.error("Error during login:", error);
         return NextResponse.json(
             {error:error.message},{status: 500}
         )
