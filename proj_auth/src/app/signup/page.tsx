@@ -7,7 +7,10 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
-function signupPage() {
+function SignupPage() {
+  interface ErrorWithMessage {
+    message: string
+}
   const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
@@ -25,9 +28,10 @@ function signupPage() {
       const response = await axios.post("/api/users/signup", user);
       console.log("sugn-up success", response.data);
       router.push('/login')
-    } catch (error:any) {
-      console.log("sign-up failed", error.message);
-      toast.error(error.message)
+    } catch (error) {
+      const err = error as ErrorWithMessage
+      // console.log("sign-up failed", err.message);
+      toast.error(err.message)
     }finally {
       setLoading(false)
     }
@@ -121,4 +125,4 @@ function signupPage() {
   )
 }
 
-export default signupPage
+export default SignupPage

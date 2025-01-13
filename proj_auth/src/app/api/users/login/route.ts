@@ -6,6 +6,10 @@ import jwt from 'jsonwebtoken';
 
 connectDB()
 
+interface ErrorWithMessage {
+    message: string
+}
+
 export async function POST(request: NextRequest){
     try {
         const reqBody = await request.json()
@@ -48,10 +52,11 @@ export async function POST(request: NextRequest){
         })
         return response
 
-    } catch (error: any) {
+    } catch (error) {
+        const err = error as ErrorWithMessage
         // console.error("Error during login:", error);
         return NextResponse.json(
-            {error:error.message},{status: 500}
+            {error:err.message},{status: 500}
         )
     }
 }

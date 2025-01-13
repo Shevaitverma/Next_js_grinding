@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 
+interface ErrorWithMessage {
+    message: string
+}
 
 export async function GET() {
     try {
@@ -11,9 +14,10 @@ export async function GET() {
             httpOnly: true, expires: new Date(0)
         })
         return response;
-    } catch (error: any) {
+    } catch (error) {
+        const err = error as ErrorWithMessage
         return NextResponse.json(
-            {error: error.message},
+            {error: err.message},
             {status: 500}
         )
     }

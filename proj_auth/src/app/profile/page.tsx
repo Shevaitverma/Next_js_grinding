@@ -1,22 +1,25 @@
 "use client";
 
 import React from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
-function profile() {
-
+function Profile() {
+  interface ErrorWithMessage {
+    message: string
+}
   const router = useRouter();
   const logout = async () => {
     try {
       await axios.get("/api/users/logout");
       toast.success("logout successful");
       router.push("/login")
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error(error.message);
+    } catch (error) {
+      const err = error as ErrorWithMessage
+      // console.log(err.message);
+      toast.error(err.message);
     }
   }
 
@@ -34,4 +37,4 @@ function profile() {
   )
 }
 
-export default profile
+export default Profile

@@ -5,6 +5,10 @@ import bcryptjs from 'bcryptjs';
 
 connectDB()
 
+interface ErrorWithMessage {
+    message: string
+}
+
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json()
@@ -40,9 +44,10 @@ export async function POST(request: NextRequest) {
         })
         
         
-    } catch (error: any) {
+    } catch (error) {
+        const err = error as ErrorWithMessage
         return NextResponse.json(
-            {error: error.message},
+            {error: err.message},
             {status: 500}
         )
     }

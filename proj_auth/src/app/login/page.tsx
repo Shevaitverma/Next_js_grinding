@@ -6,7 +6,10 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-function loginPage() {
+function LoginPage() {
+  interface ErrorWithMessage {
+    message: string
+}
   const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
@@ -19,13 +22,14 @@ function loginPage() {
   const onLogin = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/users/login", user);
+      await axios.post("/api/users/login", user);
       // console.log("Login success", response.data);
       toast.success("login Success");
       router.push("/profile");
-    } catch (error:any) {
+    } catch (error) {
+      const err = error as ErrorWithMessage
       // console.log("Login failed", error.message);
-      toast.error(error.message);
+      toast.error(err.message);
       
     }finally {
       setLoading(false);
@@ -46,7 +50,7 @@ function loginPage() {
         <div>
           <h2 className="text-3xl font-bold text-center text-gray-900">{loading?"Processing...":"Login"}</h2>
           <p className="mt-2 text-sm text-center text-gray-600">
-            Don't have an account?{' '}
+            Do not have an account?{' '}
             <Link href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">Sign-up here</Link>
           </p>
         </div>
@@ -103,4 +107,4 @@ function loginPage() {
   )
 }
 
-export default loginPage
+export default LoginPage
